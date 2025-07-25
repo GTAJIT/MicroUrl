@@ -1,24 +1,23 @@
 {
-  "name": "urlshorter",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "name": "micro-url",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "nodemon index.js",
-    "build": "node index.js"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "dotenv": "^17.2.1",
-    "ejs": "^3.1.10",
-    "express": "^5.1.0",
-    "mongodb": "^6.18.0",
-    "mongoose": "^8.16.4",
-    "nanoid": "^5.1.5"
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "next": "15.4.4"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.4",
+    "@eslint/eslintrc": "^3"
   }
 }
