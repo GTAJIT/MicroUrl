@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body
+    class="bg-gray-100 text-gray-800 min-h-screen flex flex-col items-center px-4 py-8"
+  >
+    <div class="w-full max-w-2xl">
+      <h1 class="text-3xl font-bold text-blue-600 mb-6 text-center">
+        🔗 URL Shortener
+      </h1>
+      <!-- Form -->
+      <form action="/url" method="POST" class="flex gap-2 mb-8">
+        <input
+          type="url"
+          name="url"
+          placeholder="Enter a URL to shorten"
+          required
+          class="flex-1 p-3 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <button
+          type="submit"
+          class="bg-blue-600 text-white px-5 py-3 rounded hover:bg-blue-700 transition"
+        >
+          Shorten
+        </button>
+      </form>
+      <% if (locals.id) { %>
+      <div class="bg-green-100 text-green-800 p-4 rounded shadow text-center">
+        <% if (message) { %>
+        <div
+          class="bg-yellow-100 text-yellow-800 p-3 rounded shadow mb-4 text-center"
+        >
+          <%= message %>
+        </div>
+        <% } %>
+        <a href="/<%= id %>" class="text-blue-600 underline font-semibold">
+          <%= id %>
+        </a>
+      </div>
+      <% } %> <% if (locals.orgId) { %>
+      <p class="text-sm text-gray-500 mt-2 text-center">
+        Original: <%= locals.orgId %>
+      </p>
+      <% } %>
+    </div>
+    <div>
+      <% if (locals.urls && locals.urls.length> 0) { %>
+      <h2 class="text-2xl font-semibold text-center mb-4 mt-10">
+        📄 All Shortened URLs
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse shadow-sm">
+          <thead>
+            <tr class="bg-blue-100 text-blue-800">
+              <th class="p-3 border-b">Short ID</th>
+              <th class="p-3 border-b">Original URL</th>
+              <th class="p-3 border-b">Clicks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% urls.forEach(url=> { %>
+            <tr class="hover:bg-gray-100">
+              <td class="p-3 border-b">
+                <a
+                  href="/<%= url.shortId %>"
+                  target="_blank"
+                  class="text-blue-600 underline"
+                >
+                  <%= url.shortId %>
+                </a>
+              </td>
+              <td class="p-3 border-b break-words">
+                <a
+                  href="<%= url.redirectUrl %>"
+                  target="_blank"
+                  class="text-gray-700 underline"
+                >
+                  <%= url.redirectUrl %>
+                </a>
+              </td>
+              <td class="p-3 border-b text-center">
+                <%= url.visitHistory.length %>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } else { %>
+      <p class="text-gray-500 text-center mt-6">No shortened URLs yet.</p>
+      <% } %>
+    </div>
+  </body>
+</html>
